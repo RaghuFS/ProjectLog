@@ -64,6 +64,9 @@ public class WorkLogServiceImpl implements WorkLogService{
 			//throw new RuntimeException("Start time should not greater than End time");
 			throw new UnauthorizedException("Start time should not greater than End time");
 		}
+		if(!projectRepository.existsByProjectName(workLogDTO.getProject())) {
+			throw new UnauthorizedException("Project does not exist");
+		}
 		 if (isWorkDateInFuture(workLogDTO.getWorkDate())) {
 	            throw new UnauthorizedException("Work log date cannot be in the future");
 	        }
