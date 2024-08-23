@@ -65,13 +65,12 @@ public class WorkLogServiceImpl implements WorkLogService{
 			//throw new RuntimeException("Start time should not greater than End time");
 			throw new UnauthorizedException("Start time should not greater than End time");
 		}
-//		if(!isWorkDateToday(workLogDTO.getWorkDate())) {
-//			//throw new RuntimeException("work log date is not todays date");	
-//			throw new UnauthorizedException("work log date is not todays date");
-//		}
 		if(!projectRepository.existsByProjectName(workLogDTO.getProject())) {
 			throw new UnauthorizedException("Project does not exist");
 		}
+		 if (isWorkDateInFuture(workLogDTO.getWorkDate())) {
+	            throw new UnauthorizedException("Work log date cannot be in the future");
+	        }
 		
 		WorkLog workLog = workLogMapper.workLogDTOToWorkLog(workLogDTO);
 		workLog.setTotalTime(totalTimeCalculation(workLogDTO.getStartTime(), workLogDTO.getEndTime()));
@@ -80,18 +79,22 @@ public class WorkLogServiceImpl implements WorkLogService{
 		return workLogMapper.workLogToWorkLogDTO(save);
 	}
 
+	private boolean isWorkDateInFuture(Date workDate) {
+		  LocalDate today = LocalDate.now();
+	        LocalDate workLocalDate = workDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	        return workLocalDate.isAfter(today);
+}
+
 	@Override
 	@Transactional(readOnly =true)
 	public WorkLogDTO getWorkLog(int workLogId) {
-
 		WorkLog workLog = workLogRepository.findById(workLogId).orElseThrow(() -> new ResourceNotFoundException("WorkLog not found with ID - "+ workLogId));
 		return workLogMapper.workLogToWorkLogDTO(workLog);
 	}
-
 	@Override
 	@Transactional(readOnly = true)
 	public List<WorkLogDTO> getAllWorkLogs() {
-
+		String resourceId = jwtUtil.extractRolesFromRequest();
 		List<WorkLog> all = workLogRepository.findAll();
 		return workLogMapper.workLogsToWorkLogDTOs(all);
 	}
@@ -103,17 +106,17 @@ public class WorkLogServiceImpl implements WorkLogService{
 		
 		String resourceId = jwtUtil.extractUsernameFromRequest();
 		if(!resourceId.equals(existWorkLog.getResourceId()) || !resourceId.equals(workLogDTO.getResourceId())) {
-			//throw new RuntimeException("Un Authorized Exception");
+			//throw new RuntimeException("UnAuthorized Exception");
 			throw new UnauthorizedException("Un Authorized Exception");
 		}
 		if(!isStartTimeBeforeEndTime(workLogDTO.getStartTime(),workLogDTO.getEndTime())) {
 			//throw new RuntimeException("Start time should not greater than End time");
 			throw new UnauthorizedException("Start time should not greater than End time");
 		}
-//		if(!isWorkDateToday(workLogDTO.getWorkDate())) {
-//			//throw new RuntimeException("work log date is not todays date");	
-//			throw new UnauthorizedException("work log date is not todays date");
-//		}
+		if(!isWorkDateToday(workLogDTO.getWorkDate())) {
+			//throw new RuntimeException("work log date is not todays date");	
+			throw new UnauthorizedException("Only today's work logs can be updated");
+		}
 		
 		
 		existWorkLog.setProject(workLogDTO.getProject());
@@ -127,6 +130,13 @@ public class WorkLogServiceImpl implements WorkLogService{
 		existWorkLog.setResourceId(workLogDTO.getResourceId());
 		return workLogMapper.workLogToWorkLogDTO( workLogRepository.save(existWorkLog));
 	}
+
+	/*
+	 * public boolean isWorkDateToday(Date workDate) { LocalDate today =
+	 * LocalDate.now(); LocalDate workLocalDate =
+	 * workDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(); return
+	 * workLocalDate.isEqual(today); }
+	 */
 
 	@Override
 	@Transactional
@@ -153,6 +163,7 @@ public class WorkLogServiceImpl implements WorkLogService{
 		String usernameFromRequest = jwtUtil.extractUsernameFromRequest();
 		String rolesFromRequest = jwtUtil.extractRolesFromRequest();
 		List<String> rolesList = Arrays.asList(rolesFromRequest.split(","));
+		
 		if(rolesList.contains("WORKLOG_ADMIN")) {
 			Page<WorkLog> allWorkLogs = workLogRepository.findAllWorkLogs(resourceId,workDate,
 					pageable);

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +28,8 @@ import lombok.Setter;
 public class WorkLog {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "worklog_seq")
+	@SequenceGenerator(name = "worklog_seq", sequenceName = "WORKLOG_SEQ", allocationSize = 1)
 	@Column(name = "WORKLOG_ID")
 	private int workLogId;
 
