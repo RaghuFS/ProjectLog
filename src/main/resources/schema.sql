@@ -12,11 +12,16 @@ CREATE SCHEMA IF NOT EXISTS workdetails
 
 CREATE TABLE IF NOT EXISTS workdetails.worklog_table
 (
-    work_log_id integer NOT NULL,
-    description character varying(255) COLLATE pg_catalog."default",
-    module character varying(255) COLLATE pg_catalog."default",
-    project character varying(255) COLLATE pg_catalog."default",
-    CONSTRAINT worklog_table_pkey PRIMARY KEY (work_log_id)
+	worklog_id int4 NOT NULL,
+	task_description varchar(255) NULL,
+	end_time varchar(255) NULL,
+	"module" varchar(255) NULL,
+	project_name varchar(255) NULL,
+	resource_id varchar(255) NULL,
+	start_time varchar(255) NULL,
+	total_time varchar(255) NULL,
+	work_date date NULL,
+	CONSTRAINT worklog_table_pkey PRIMARY KEY (worklog_id)
 )
 
 TABLESPACE pg_default;
@@ -29,7 +34,7 @@ ALTER TABLE IF EXISTS workdetails.worklog_table
 
 -- DROP TABLE IF EXISTS workdetails.project;
 
-CREATE TABLE IF NOT EXISTS workdetails.project
+CREATE TABLE IF NOT EXISTS workdetails.project_table
 (
     project_id integer NOT NULL,
     description character varying(255) COLLATE pg_catalog."default",
@@ -39,5 +44,5 @@ CREATE TABLE IF NOT EXISTS workdetails.project
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS workdetails.project
+ALTER TABLE IF EXISTS workdetails.project_table
     OWNER to postgres;	

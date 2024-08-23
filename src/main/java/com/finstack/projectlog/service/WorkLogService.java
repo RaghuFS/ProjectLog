@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.finstack.projectlog.entity.Resource;
 import com.finstack.projectlog.model.WorkLogDTO;
 
 public interface WorkLogService {
@@ -17,5 +18,7 @@ public interface WorkLogService {
 	void deleteWorkLog(int workLogId);
 	
 	Page<WorkLogDTO> getAllWorkLogsByPaging(Date workDate, String resourceId, Pageable pageable);
+	
+	List<Resource> resourcesWithoutWorkLog();
 
 }

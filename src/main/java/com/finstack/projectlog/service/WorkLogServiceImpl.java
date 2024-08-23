@@ -19,6 +19,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finstack.projectlog.entity.Resource;
 import com.finstack.projectlog.entity.WorkLog;
 import com.finstack.projectlog.exception.UnauthorizedException;
 import com.finstack.projectlog.jwtauth.configuration.service.JWTUtil;
@@ -211,5 +212,11 @@ public class WorkLogServiceImpl implements WorkLogService{
 	    System.out.println("%%% workDate -"+workDate+"   today = "+today+ "  worklocaldate = "+workLocalDate);
 
 	    return workLocalDate.equals(today);
+	}
+
+	@Override
+	public 	List<Resource> resourcesWithoutWorkLog(){
+		List<Resource> resourcesWithoutWorkLog = workLogRepository.findResourcesWithoutWorkLogToday();
+		return resourcesWithoutWorkLog;
 	}
 }
