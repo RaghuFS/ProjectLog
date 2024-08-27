@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <toAddress><![CDATA[<%resourceId%>]]></toAddress>
+    <ccAddress><![CDATA[worklogadmin@finstack-tech.com]]></ccAddress>
+    <bccAddress><![CDATA[]]></bccAddress>
+    <mailSubject><![CDATA[Reminder: Worklog Submission Reminder for <%currentDate%>]]></mailSubject>
+    <fromAddress><![CDATA[worklogadmin@finstack-tech.com]]></fromAddress>
+    <mailContent><![CDATA[Dear <%resourceName%>,
+ 
+<p>This is a friendly reminder to complete your worklog for <%currentDate%>. It appears that your worklog has not yet been filled out for today. Please ensure that you update your worklog as soon as possible to maintain accurate records and facilitate proper project tracking.</p>
+ 
+<p>Details:</p>
+<p>Employee Name: <%resourceName%></p>
+<p>Date: <%currentDate%></p>
+ 
+<p>If you have already submitted your worklog, please disregard this reminder. Should you need any assistance or encounter any issues while filling out your worklog, feel free to reach out to the Worklog Administration team at worklogadmin@finstack-tech.com.</p>
+ 
+<p>Thank you for your prompt attention to this matter.</p>
+ 
+<p>Best regards,</p>
+<p>Worklog Administration Team</p>
+ 
+<img src='cid:assistLogo' alt='Assist Logo' /><br>
+Worklog Reminder Notification.]]></mailContent>
+</root>
