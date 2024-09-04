@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<toAddress><![CDATA[worklogadmin@finstack-tech.com]]></toAddress>
+<ccAddress><![CDATA[]]></ccAddress>
+<bccAddress><![CDATA[]]></bccAddress>
+<mailSubject><![CDATA[Daily Worklog Report for <%currentDate%>]]></mailSubject>
+<fromAddress><![CDATA[worklogadmin@finstack-tech.com]]></fromAddress>
+<mailContent><![CDATA[
+<p>Dear Worklog Administration Team,</p>
+<p>Please find attached the daily worklog report for <%currentDate%>. The report includes all the worklogs submitted by the employees for today.</p>
+<p>If you have any questions or need further information, please do not hesitate to reach out.</p>
+<p>Best regards,</p>
+<p>Worklog Administration Team</p>
+<img src='cid:assistLogo' alt='Assist Logo' /><br>
+        Daily Worklog Report Notification.
+    ]]></mailContent>
+</root>
