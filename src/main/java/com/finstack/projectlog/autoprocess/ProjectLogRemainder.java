@@ -42,7 +42,7 @@ public class ProjectLogRemainder {
 	    @Autowired
 	    private EmailTemplateUtil emailTemplateUtil;
 
-	    @Scheduled(cron = "0 58 18 * * MON-FRI", zone = "Asia/Kolkata")
+	    @Scheduled(cron = "0 17 13 * * MON-FRI", zone = "Asia/Kolkata")
 	    public void checkAndSendRemainders() {
 	        List<Resource> resourcesWithoutWorkLog = workLogService.resourcesWithoutWorkLog();
 	        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());

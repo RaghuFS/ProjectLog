@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-<toAddress><![CDATA[worklogadmin@finstack-tech.com]]></toAddress>
-<ccAddress><![CDATA[]]></ccAddress>
-<bccAddress><![CDATA[]]></bccAddress>
+<toAddress><![CDATA[]]></toAddress>
+<ccAddress><![CDATA[raghu@finstack-tech.com]]></ccAddress>
+<bccAddress><![CDATA[sandeep@finstack-tech.com]]></bccAddress>
 <mailSubject><![CDATA[Daily Worklog Report for <%currentDate%>]]></mailSubject>
 <fromAddress><![CDATA[]]></fromAddress>
 <mailContent><![CDATA[
